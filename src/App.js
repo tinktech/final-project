@@ -5,7 +5,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,6 +13,9 @@ import {
   useRouteMatch
 } from 'react-router-dom';
 import Navi from './components/Navi';
+import { Quotes } from './components/Quotes';
+import { QuoteForm } from './components/QuoteForm';
+import './App.css';
 
 
 export default function App() {
@@ -39,25 +41,25 @@ export default function App() {
   // ];
 
   return (
-    <Navi />
+    <>
     <Container>
       <Router>
-        <div>
-
+          <Navi />
+          
           <Switch>
-            <Route path='/quotes'>
-              <Quotes />
-            </Route>
+            <Route path='/quotes' component={Quotes} />
+              {/* <Quotes /> */}
+            {/* </Route> */}
             <Route path='/create'>
-              <Create />
+              {/* <Create /> */}
             </Route>
             <Route path='/'>
-              <Home />
+              {/* <Home /> */}
             </Route>
           </Switch>
-        </div>
       </Router>
     </Container>
+    </>
   );
 }
 
