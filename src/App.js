@@ -42,10 +42,10 @@ export default function App() {
 
   return (
     <>
-    <Container>
+    
       <Router>
           <Navi />
-          
+          <Container>
           <Switch>
             <Route path='/quotes' component={Quotes} />
               {/* <Quotes /> */}
@@ -57,8 +57,9 @@ export default function App() {
               {/* <Home /> */}
             </Route>
           </Switch>
+              </Container>
       </Router>
-    </Container>
+
     </>
   );
 }
