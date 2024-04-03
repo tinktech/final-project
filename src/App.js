@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom';
 import Navi from './components/Navi';
 import { Quotes } from './components/Quotes';
+import { Quote } from './components/Quote';
 import { QuoteForm } from './components/QuoteForm';
 import './App.css';
 
@@ -48,12 +49,13 @@ export default function App() {
           <Container>
           <Switch>
             <Route path='/quotes' component={Quotes} />
+            <Route path='/quote/:id' component={Quote} />
               {/* <Quotes /> */}
             {/* </Route> */}
-            <Route path='/create'>
+            <Route path='/create' >
               {/* <Create /> */}
             </Route>
-            <Route path='/'>
+            <Route path='/' >
               {/* <Home /> */}
             </Route>
           </Switch>

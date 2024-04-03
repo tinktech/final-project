@@ -1,45 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom/cjs/react-router-dom';
+import { inspirationApi } from '../api/api';
 import { Comments } from './Comments';
 import { CommentForm } from './CommentForm';
 import Card from 'react-bootstrap/Card';
 
+export function Quote() {
+  const { id } = useParams();
+  // const { quotes } = useParams();
+  console.log(id);
+  // console.log(quotes);
+  // const quote = quotes[id];
 
-export const Quote = (props) => {
-  const { quote, updateQuote } = props;
-  const comments = quote.comments;
-
-  const handleDeleteComment = (commentId) => {
-    const updatedQuote = {
-      ...quote,
-      comments: quote.comments.filter((x) => x.id !== commentId)
-    };
-    updateQuote(updatedQuote);
-  }
-
-  const handleEditComment = (updateQuote) => {
-    const updatedQuote = {
-      ...quote,
-      comments: quote.comments.map(currentComment => {
-        if (currentComment.id === updatedComment.id) {
-          return updatedComment;
-        } else {
-          return currentComment;
-        }
-      })
-    };
-    updateQuote(updatedQuote);
-  }
-
-  const addNewComment = (comment) => updateQuote({...quote, comments: [...quote.comments, comment]});
-
-  return (
-    <div className='quote'>
-      <Card>
-        <Card.Header>"{quote.quote}"</Card.Header>
-        <Card.Subtitle>Credit: {quote.credit} - Creditor: {quote.creditor}</Card.Subtitle>
-        <Card.Body>{quote.note}</Card.Body>
-      </Card>
-    </div>
-
-  )
+    return (
+          <div className='quote' key={quote.id}>
+            
+              <Card>
+                <Card.Header>"{quote.quote}"</Card.Header>
+                <Card.Subtitle>Credit: {quote.credit} - Creditor: {quote.creditor}</Card.Subtitle>
+                <Card.Body>{quote.note}</Card.Body>
+              </Card>
+          </div>
+    );
 }

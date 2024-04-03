@@ -1,6 +1,9 @@
 body {
    color: rgb(236, 255, 246);
 }
+a {
+   text-decoration: none;
+}
 
 .navbar {
    padding: 0px 20px;
