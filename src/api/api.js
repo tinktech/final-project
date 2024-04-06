@@ -1,9 +1,19 @@
 const INSPIRATION_ENDPOINT = 'https://65f61bfc41d90c1c5e0a9762.mockapi.io/api/recipe/inspiration';
 
 class InspirationApi {
-  get = async () => {
+  all = async () => {
     try {
       const resp = await fetch(INSPIRATION_ENDPOINT);
+      const data = await resp.json();
+      return data;
+    } catch(e) {
+      console.log('Oops, looks like fetchInspiration had an issue.', e);
+    }
+  }
+
+  one = async (id) => {
+    try {
+      const resp = await fetch(`${INSPIRATION_ENDPOINT}/${id}`);
       const data = await resp.json();
       return data;
     } catch(e) {

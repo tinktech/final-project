@@ -15,7 +15,7 @@ export class Quotes extends React.Component {
   }
 
   fetchQuotes = async () => {
-    const quotes = await inspirationApi.get();
+    const quotes = await inspirationApi.all();
     this.setState({ quotes });
   };
 

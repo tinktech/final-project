@@ -14,7 +14,7 @@ import {
 } from 'react-router-dom';
 import Navi from './components/Navi';
 import { Quotes } from './components/Quotes';
-import { Quote } from './components/Quote';
+import Quote from './components/Quote';
 import { QuoteForm } from './components/QuoteForm';
 import './App.css';
 
