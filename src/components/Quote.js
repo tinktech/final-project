@@ -28,14 +28,19 @@ class Quote extends React.Component {
     return(
       <div className='quote' key={this.state.id}>
         {this.state.quote &&
+        <>
         <Card>
           <Card.Header>"{this.state.quote.quote}"</Card.Header>
           <Card.Subtitle>Credit: {this.state.quote.credit} - Creditor: {this.state.quote.creditor}</Card.Subtitle>
           <Card.Body>{this.state.quote.note}</Card.Body>
-          
         </Card>
 
-        
+        <Comments
+          comments={comments}
+          onEditComment={handleEditComment}
+          onDeleteComment={handleDeleteComment}
+        />
+        </>
         }
       </div>
     );
