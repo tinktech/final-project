@@ -1,5 +1,5 @@
 import React from 'react';
-import { inspirationApi } from '../api/api';
+import { inspirationApi } from '../api/InspirationApi';
 import { Quote } from './Quote';
 import { Link } from 'react-router-dom/cjs/react-router-dom';
 import Card from 'react-bootstrap/Card';

@@ -1,90 +1,67 @@
 import React, { useState } from 'react';
-// import Comment from './Comment';
+import { commentApi } from '../api/CommentApi';
+import Card from 'react-bootstrap/Card';
+import Comment from './Comment';
+import CommentForm from './CommentForm';
 
-export function Comments({
-  comments,
-  onEditComment,
-  onDeleteComment
-}) {
-  return (
-    <ul>
-      {comments.map((comment, index) => (
-        <li key={index}>
-          <Comment
-            comment={comment}
-            onChange={onEditComment}
-            onDelete={onDeleteComment}
-          />
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function Comment({comment, onChange, onDelete}) {
-  const [isEditing, setIsEditing] = useState(false);
-  const editing = () => {
-    setIsEditing(current => !current);
+export class Comments extends React.Component {
+constructor(props) {
+    super(props);
+    this.state = {
+      quoteId: props.quoteId,
+      comments: []
+    }
   }
 
-  let commentContent;
-  let editButton;
-  if (isEditing) {
-    commentContent = (
-      <>
-        <input
-          type='text'
-          defaultValue={comment.name}
-          onChange={(e) => {
-            onChange({
-              ...comment,
-              name: e.target.value
-            });
-          }}
-        />
-        <select
-          defaultValue={comment.rating}
-          onChange={(e) => {
-            onChange({
-              ...comment,
-              rating: e.target.value
-            });
-          }}
-        >
-          <option value="★">★</option>
-          <option value="★★">★★</option>
-          <option value="★★★">★★★</option>
-          <option value="★★★★">★★★★</option>
-          <option value="★★★★★">★★★★★</option>
-        </select>
-        <input
-          type='text'
-          defaultValue={comment.comment}
-          onChange={(e) => {
-            onChange({
-              ...comment,
-              comment: e.target.value
-            });
-          }}
-        />
-      </>
-    );
-    editButton = "Save";
-  } else {
-    commentContent = (
-      <>
-        {`${comment.name} - ${comment.rating}`}
-        {`${comment.comment}`}
-      </>
-    );
-    editButton = "Edit";
+  componentDidMount() {
+    this.fetchComments();
   }
 
-  return (
-    <label>
-      {commentContent}
-      <button onClick={editing}>{editButton}</button>
-      <button onClick={() => onDelete(comment.id)}>Delete</button>
-    </label>
-  )
+  fetchComments = async () => {
+    const comments = await commentApi.all(this.state.quoteId);
+    this.setState({ comments });
+  };
+
+  updateComment = async (updateComment) => {
+    await commentApi.put(this.state.quoteId, updateComment);
+    this.fetchComments();
+  };
+
+  addNewComment = async (comment) => {
+    await commentApi.post(this.state.quoteId, comment);
+    this.fetchComments();
+  }
+
+  deleteComment = async (commentId) => {
+    await commentApi.delete(this.state.quoteId, commentId);
+    this.fetchComments();
+  }
+
+  render() {
+    return (
+      <div className="comments">
+
+        {this.state.comments.map((comment) => {
+          return (
+          <div className='comment' key={comment.id}>
+            <Comment 
+              comment={comment}
+              onChange={this.updateComment.bind(this)}
+              onDelete={this.deleteComment.bind(this)}
+            />
+
+              {/* <Card>
+                <Card.Header>{comment.commenter}</Card.Header>
+                <Card.Subtitle>{comment.rating}</Card.Subtitle>
+                <Card.Body>{comment.comment}</Card.Body>
+              </Card> */}
+          </div>
+          );
+        })}
+
+        <CommentForm addNewComment={this.addNewComment.bind(this)} />
+
+      </div>
+    )
+  }
 }
