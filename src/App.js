@@ -18,6 +18,7 @@ import Quote from './components/Quote';
 import QuoteForm from './components/QuoteForm';
 import EditQuote from './components/EditQuote';
 import './App.css';
+import { RandomQuote } from './components/RandomQuote';
 
 
 export default function App() {
@@ -29,13 +30,12 @@ export default function App() {
           <Navi />
           <Container>
           <Switch>
+            <Route path='/random' component={RandomQuote} />
             <Route path='/quotes' component={Quotes} />
             <Route path='/quote/:id/edit' component={EditQuote} />
             <Route path='/quote/:id' component={Quote} />
             <Route path='/create' component={QuoteForm} />
-            <Route path='/' >
-              {/* <Home /> */}
-            </Route>
+            <Route path='/' component={RandomQuote} />
           </Switch>
               </Container>
       </Router>
