@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function CommentForm(props) {
   const [commenter, setCommenter] = useState('');
-  const [rating, setRating] = useState('');
+  const [rating, setRating] = useState('★');
   const [comment, setComment] = useState('');
 
   const onSubmit = (e) => {
@@ -26,8 +26,9 @@ export default function CommentForm(props) {
           placeholder="name"
           onChange={(e) => setCommenter(e.target.value)}
           value={commenter}
+          required
         />
-        <select value={rating} onChange={(e) => setRating(e.target.value)}>
+        <select value={rating} onChange={(e) => setRating(e.target.value)} required>
           <option value="★">★</option>
           <option value="★★">★★</option>
           <option value="★★★">★★★</option>
@@ -39,6 +40,7 @@ export default function CommentForm(props) {
           placeholder="comment"
           onChange={(e) => setComment(e.target.value)}
           value={comment}
+          required
         />
         <button type="submit">Add Comment</button>
       </form>

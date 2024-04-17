@@ -5,7 +5,8 @@ import Card from 'react-bootstrap/Card';
 
 export class RandomQuote extends React.Component {
   state = {
-    quotes: []
+    quotes: [],
+    quote: null
   };
 
   componentDidMount() {
@@ -15,36 +16,29 @@ export class RandomQuote extends React.Component {
   fetchQuotes = async () => {
     const quotes = await inspirationApi.all();
     this.setState({ quotes });
-    this.getRandomQuote({quotes});
+    this.getRandomQuote(quotes);
   };
 
   getRandomQuote = (array) => {
     const quote = array[Math.floor(Math.random() * array.length)];
-    this.setState({quote});
-    console.log({quote});
-    console.log(array);
+    this.setState(quote);
   };
 
   render() {
+    const link = "/quote/" + this.state.id;
     return (
-      <div className="quotes">
+      <div className='quote' key={this.state.id}>
+        <Link to={link}>
+          <Card>
+            <Card.Header>"{this.state.quote}"</Card.Header>
+            <Card.Subtitle>Credit: {this.state.credit} - Creditor: {this.state.creditor}</Card.Subtitle>
+            <Card.Body>{this.state.note}</Card.Body>
+          </Card>
+        </Link>
 
-        {/* {this.state.quotes.map((quote) => {
-          const link = "/quote/" + quote.id;
-          return (
-          <div className='quote' key={quote.id}>
-            <Link to={link}>
-              <Card>
-                <Card.Header>"{quote.quote}"</Card.Header>
-                <Card.Subtitle>Credit: {quote.credit} - Creditor: {quote.creditor}</Card.Subtitle>
-                <Card.Body>{quote.note}</Card.Body>
-              </Card>
-            </Link>
-          </div>
-          );
-        })} */}
-
+        <button onClick={() => location.reload()}>↺</button>
       </div>
+
     )
   }
 }
