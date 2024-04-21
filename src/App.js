@@ -1,16 +1,10 @@
 import React from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Alert from 'react-bootstrap/Alert';
-import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
-  useRouteMatch
+  Route
 } from 'react-router-dom';
 import Navi from './components/Navi';
 import { Quotes } from './components/Quotes';
@@ -28,7 +22,7 @@ export default function App() {
     
       <Router>
           <Navi />
-          <Container>
+          <Container className='mainContainer'>
           <Switch>
             <Route path='/random' component={RandomQuote} />
             <Route path='/quotes' component={Quotes} />

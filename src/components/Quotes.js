@@ -1,6 +1,5 @@
 import React from 'react';
 import { inspirationApi } from '../api/InspirationApi';
-import { Quote } from './Quote';
 import { Link } from 'react-router-dom/cjs/react-router-dom';
 import Card from 'react-bootstrap/Card';
 
@@ -34,9 +33,20 @@ export class Quotes extends React.Component {
           <div className='quote' key={quote.id}>
             <Link to={link}>
               <Card>
-                <Card.Header>"{quote.quote}"</Card.Header>
-                <Card.Subtitle>Credit: {quote.credit} - Creditor: {quote.creditor}</Card.Subtitle>
-                <Card.Body>{quote.note}</Card.Body>
+                <Card.Body>
+                  <blockquote className='blockquote'>
+                    <p>
+                      {' '}
+                      "{quote.quote}"{' '}
+                    </p>
+                    <footer className='blockquote-footer'>
+                      <cite>{quote.credit}</cite>; Credited by: {quote.creditor}
+                    </footer>
+                  </blockquote>
+                </Card.Body>
+                <p className='quotesNote mb-0'>
+                  {quote.note}
+                </p>
               </Card>
             </Link>
           </div>

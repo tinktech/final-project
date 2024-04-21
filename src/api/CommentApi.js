@@ -68,6 +68,20 @@ class CommentApi {
       console.log('Oops, looks like delete comment had an issues.', e);
     }
   }
+
+  deleteAll = async (inspirationId) => {
+    try {
+      const resp = await fetch(`${INSPIRATION_ENDPOINT}/${inspirationId}/comments/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      return await resp.json();
+    } catch(e) {
+      console.log('Oops, looks like deleting quote comments had an issue.', e);
+    }
+  }
 }
 
 export const commentApi = new CommentApi();

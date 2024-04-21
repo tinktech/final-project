@@ -2,6 +2,7 @@ import React from "react";
 import { inspirationApi } from "../api/InspirationApi";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import Card from 'react-bootstrap/Card';
+import Button from "react-bootstrap/Button";
 
 export class RandomQuote extends React.Component {
   state = {
@@ -30,13 +31,25 @@ export class RandomQuote extends React.Component {
       <div className='quote' key={this.state.id}>
         <Link to={link}>
           <Card>
-            <Card.Header>"{this.state.quote}"</Card.Header>
-            <Card.Subtitle>Credit: {this.state.credit} - Creditor: {this.state.creditor}</Card.Subtitle>
-            <Card.Body>{this.state.note}</Card.Body>
+            <Card.Body>
+              <blockquote className="blockquote">
+                <p>
+                  {' '}
+                  "{this.state.quote}"{' '}
+                </p>
+                <footer className="blockquote-footer">
+                  <cite>{this.state.credit}</cite>; Credited by: {this.state.creditor}
+                </footer>
+              </blockquote>
+            </Card.Body>
+            <p className="quotesNote">
+              {this.state.note}
+            </p>
           </Card>
         </Link>
-
-        <button onClick={() => location.reload()}>↺</button>
+        <div className="refreshButton">
+        <Button onClick={() => location.reload()}>↺</Button>
+        </div>
       </div>
 
     )

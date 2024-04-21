@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { commentApi } from '../api/CommentApi';
 import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
 
@@ -39,29 +40,24 @@ constructor(props) {
 
   render() {
     return (
-      <div className="comments">
-
+      <Card className="comments">
+        <ListGroup variant='flush'>
         {this.state.comments.map((comment) => {
           return (
-          <div className='comment' key={comment.id}>
-            <Comment 
-              comment={comment}
-              onChange={this.updateComment.bind(this)}
-              onDelete={this.deleteComment.bind(this)}
-            />
-
-              {/* <Card>
-                <Card.Header>{comment.commenter}</Card.Header>
-                <Card.Subtitle>{comment.rating}</Card.Subtitle>
-                <Card.Body>{comment.comment}</Card.Body>
-              </Card> */}
-          </div>
+            <ListGroup.Item className='comment' key={comment.id}>
+              <Comment 
+                comment={comment}
+                onChange={this.updateComment.bind(this)}
+                onDelete={this.deleteComment.bind(this)}
+              />
+            </ListGroup.Item>
           );
         })}
+        </ListGroup>
 
         <CommentForm addNewComment={this.addNewComment.bind(this)} />
 
-      </div>
+      </Card>
     )
   }
 }

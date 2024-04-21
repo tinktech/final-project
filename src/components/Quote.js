@@ -3,6 +3,9 @@ import { withRouter } from 'react-router-dom/cjs/react-router-dom';
 import { inspirationApi } from '../api/InspirationApi';
 import { Comments } from './Comments';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { commentApi } from '../api/CommentApi';
 
 class Quote extends React.Component {
   constructor(props) {
@@ -24,7 +27,11 @@ class Quote extends React.Component {
 
   async deleteQuote() {
     await inspirationApi.delete(this.state.id);
+    this.deleteQuoteComments();
     this.props.history.push('/quotes');
+  }
+  async deleteQuoteComments() {
+    await commentApi.deleteAll(this.state.id);
   }
 
   editQuote() {
@@ -35,19 +42,35 @@ class Quote extends React.Component {
     return(
       <div className='quote' key={this.state.id}>
         <>
-        {this.state.quote &&
-        <Card>
-          <Card.Header>"{this.state.quote.quote}"</Card.Header>
-          <Card.Subtitle>Credit: {this.state.quote.credit} - Creditor: {this.state.quote.creditor}</Card.Subtitle>
-          <Card.Body>{this.state.quote.note}</Card.Body>
-
-          <button onClick={() => this.editQuote()}>Edit</button>
-          <button onClick={() => this.deleteQuote()}>Delete</button>
-        </Card>
-        }
-        <Comments
-          quoteId={this.state.id}
-        />
+          {this.state.quote &&
+          <Card className='quoteCard'>
+            <Card.Body>
+              <blockquote className='blockquote'>
+                <p>
+                  {' '}
+                  "{this.state.quote.quote}"{' '}
+                </p>
+                <footer className='blockquote-footer'>
+                  <cite>{this.state.quote.credit}</cite>; Credited by: {this.state.quote.creditor}
+                </footer>
+              </blockquote>
+            </Card.Body>
+            <div className='noteButtonsContainer'>
+              <p className='quoteNote'>
+                {this.state.quote.note}
+              </p>
+              <div className='editButtons'>
+              <ButtonGroup>
+                <Button variant='dark' size='sm' onClick={() => this.editQuote()}>Edit</Button>
+                <Button variant='dark' size='sm' onClick={() => this.deleteQuote()}>Delete</Button>
+              </ButtonGroup>
+              </div>
+            </div>
+          </Card>
+          }
+          <Comments
+            quoteId={this.state.id}
+          />
         </>
       </div>
     );
