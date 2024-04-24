@@ -27,11 +27,14 @@ class Quote extends React.Component {
 
   async deleteQuote() {
     await inspirationApi.delete(this.state.id);
-    this.deleteQuoteComments();
+    console.log(`quote delete attempted`);
+    // this.deleteQuoteComments();
     this.props.history.push('/quotes');
   }
   async deleteQuoteComments() {
     await commentApi.deleteAll(this.state.id);
+    console.log(`comments delete attempted`);
+    // this.deleteQuote();
   }
 
   editQuote() {
@@ -62,7 +65,7 @@ class Quote extends React.Component {
               <div className='editButtons'>
               <ButtonGroup>
                 <Button variant='dark' size='sm' onClick={() => this.editQuote()}>Edit</Button>
-                <Button variant='dark' size='sm' onClick={() => this.deleteQuote()}>Delete</Button>
+                <Button variant='dark' size='sm' onClick={() => this.deleteQuoteComments()}>Delete</Button>
               </ButtonGroup>
               </div>
             </div>
