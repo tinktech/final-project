@@ -71,7 +71,7 @@ class CommentApi {
 
   deleteAll = async (inspirationId) => {
     try {
-      const resp = await fetch(`${INSPIRATION_ENDPOINT}/${inspirationId}/comments/`, {
+      const resp = await fetch(`${INSPIRATION_ENDPOINT}/${inspirationId}/comments`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

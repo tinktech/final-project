@@ -12,7 +12,8 @@ class Quote extends React.Component {
     super(props);
     this.state = {
       id: props.match.params.id,
-      quote: null
+      quote: null,
+      comments: []
     }
   }
 
@@ -23,18 +24,33 @@ class Quote extends React.Component {
   async fetchQuote() {
     const quote = await inspirationApi.one(this.state.id);
     this.setState({quote});
+    this.fetchComments();
+  }
+  async fetchComments() {
+    const comments = await commentApi.all(this.state.id);
+    this.setState({ comments });
   }
 
   async deleteQuote() {
     await inspirationApi.delete(this.state.id);
     console.log(`quote delete attempted`);
-    // this.deleteQuoteComments();
     this.props.history.push('/quotes');
   }
   async deleteQuoteComments() {
-    await commentApi.deleteAll(this.state.id);
-    console.log(`comments delete attempted`);
-    // this.deleteQuote();
+    if (this.state.comments.length > 0) {
+      await Promise.all(
+        this.state.comments.map(async (comment) => {
+          await this.deleteComment(comment.id);
+        })
+      );
+      console.log(this.state.comments.length);
+    }
+
+    //   await this.deleteQuote()
+
+  }
+  async deleteComment(commentId) {
+    await commentApi.delete(this.state.id, commentId);
   }
 
   editQuote() {
