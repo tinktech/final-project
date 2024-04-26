@@ -26,6 +26,7 @@ class Quote extends React.Component {
     this.setState({quote});
     this.fetchComments();
   }
+
   async fetchComments() {
     const comments = await commentApi.all(this.state.id);
     this.setState({ comments });
@@ -37,17 +38,13 @@ class Quote extends React.Component {
     this.props.history.push('/quotes');
   }
   async deleteQuoteComments() {
-    if (this.state.comments.length > 0) {
-      await Promise.all(
-        this.state.comments.map(async (comment) => {
-          await this.deleteComment(comment.id);
-        })
-      );
-      console.log(this.state.comments.length);
-    }
-
+    await Promise.all(
+      this.state.comments.map(async (comment) => {
+      await this.deleteComment(comment.id);
+    }));
+    // return(
     //   await this.deleteQuote()
-
+    // );
   }
   async deleteComment(commentId) {
     await commentApi.delete(this.state.id, commentId);
