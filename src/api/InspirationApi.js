@@ -70,6 +70,4 @@ class InspirationApi {
   }
 }
 
-
-
 export const inspirationApi = new InspirationApi();

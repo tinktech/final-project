@@ -3,7 +3,6 @@ import { inspirationApi } from '../api/InspirationApi';
 import { Link } from 'react-router-dom/cjs/react-router-dom';
 import Card from 'react-bootstrap/Card';
 
-// quotes in cards; show comment count; whole card links to dedicated page
 export class Quotes extends React.Component {
   state = {
     quotes: []

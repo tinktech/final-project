@@ -34,17 +34,14 @@ class Quote extends React.Component {
 
   async deleteQuote() {
     await inspirationApi.delete(this.state.id);
-    console.log(`quote delete attempted`);
     this.props.history.push('/quotes');
   }
   async deleteQuoteComments() {
-    await Promise.all(
-      this.state.comments.map(async (comment) => {
-      await this.deleteComment(comment.id);
-    }));
-    // return(
-    //   await this.deleteQuote()
-    // );
+    await this.state.comments.reduce(async (previousPromise, comment) => {
+      await previousPromise;
+      return this.deleteComment(comment.id);
+    }, Promise.resolve());
+    await this.deleteQuote();
   }
   async deleteComment(commentId) {
     await commentApi.delete(this.state.id, commentId);
